@@ -57,7 +57,9 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">Update Admin Profile</h6>
-                            <form class="forms-sample">
+                            <form class="forms-sample" method="post" action="{{ route('admin.profile.store') }}"
+                                enctype="multipart/form-data">
+                                @csrf
                                 <div class="mb-3">
                                     <label for="exampleInputUsername1" class="form-label">Username</label>
                                     <input type="text" class="form-control" name="username" id="exampleInputUsername1"
@@ -108,7 +110,6 @@
         </div>
 
     </div>
-
 
     <script type="text/javascript">
         $(document).ready(function() {
