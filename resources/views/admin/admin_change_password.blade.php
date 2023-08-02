@@ -57,7 +57,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">Admin Change Password</h6>
-                            <form class="forms-sample" method="post" action="{{ route('admin.profile.store') }}"
+                            <form class="forms-sample" method="post" action="{{ route('admin.update.password') }}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
