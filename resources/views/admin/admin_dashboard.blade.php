@@ -37,7 +37,9 @@
     <!-- End layout styles -->
 
     <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
-    <link rel="stylesheet" type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
+
 </head>
 
 <body>
@@ -84,23 +86,29 @@
             var type = "{{ Session::get('alert-type', 'info') }}"
             switch (type) {
                 case 'info':
-                    toastr.info('{{ Session::get('message') }}');
+                    toastr.info(" {{ Session::get('message') }} ");
                     break;
 
                 case 'success':
-                    toastr.success('{{ Session::get('message') }}');
+                    toastr.success(" {{ Session::get('message') }} ");
                     break;
 
                 case 'warning':
-                    toastr.warning('{{ Session::get('message') }}');
+                    toastr.warning(" {{ Session::get('message') }} ");
                     break;
 
                 case 'error':
-                    toastr.error('{{ Session::get('message') }}');
+                    toastr.error(" {{ Session::get('message') }} ");
                     break;
             }
         @endif
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('backend/assets/js/code/code.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/code/validate.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
 </body>
 
 </html>
