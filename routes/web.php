@@ -82,9 +82,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('delete/permission/{id}','DeletePermission')->name('delete.permission');
 
         //Import Excel
-        Route::get('import/permission','ImportPermission')->name('import.permission');
+        Route::get('import','ImportPermission')->name('import.permission');
         //Export
         Route::get('export','Export')->name('export');
+        //Import Excel To Store
+        Route::post('import','Import')->name('import');
+
     });
 
 });
