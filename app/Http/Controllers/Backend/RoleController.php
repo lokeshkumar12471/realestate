@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Exports\PermissionExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 
 class RoleController extends Controller
@@ -57,5 +61,15 @@ class RoleController extends Controller
     'alert-type'=>'success'
 );
     return redirect()->back()->with($notification);
+    }
+
+
+
+    public function ImportPermission(){
+        return view('backend.pages.permission.import_permission');
+    }
+
+    public function Export(){
+        return Excel::download(new PermissionExport, 'permission.xlsx');
     }
 }
