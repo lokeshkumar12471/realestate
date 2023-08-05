@@ -9,8 +9,8 @@ use Spatie\Permission\Models\Permission;
 use App\Exports\PermissionExport;
 use App\Imports\PermissionImport;
 use Maatwebsite\Excel\Facades\Excel;
-
-
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 
 class RoleController extends Controller
@@ -132,4 +132,54 @@ public function DeleteRoles($id){
   return redirect()->back()->with($notification);
 }
 
+//Add Roles And Permission
+public function AddRolesPermission(){
+    $roles=Role::all();
+    $permissions=Permission::all();
+    $permissions_group=User::getpermissionGroups();
+    return view('backend.pages.rolesetup.add_roles_permission',compact('roles','permissions','permissions_group'));
+}
+
+public function RolePermissionStore(Request $request){
+$data=array();
+$permissions=$request->permission;
+
+foreach($permissions as $key =>$item){
+    $data['role_id']=$request->role_id;
+    $data['permission_id']=$item;
+
+    DB::table('role_has_permissions')->insert($data);
+}
+$notification=array(
+    'message'=>'Role Permission Added Successfully ',
+    'alert-type'=>'success'
+);
+return redirect()->route('all.roles.permission')->with($notification);
+}
+
+public function AllRolesPermission(){
+    $roles=Role::all();
+    return view('backend.pages.rolesetup.all_roles_permission',compact('roles'));
+}
+
+public function AdminEditRoles($id){
+    $role=Role::findOrFail($id);
+    $permission=Permission::all();
+    $permission_groups=User::getpermissionGroups();
+    return  view('backend.pages.rolesetup.edit_roles_permission',compact('role','permission','permission_groups'));
+
+}
+public function AdminRolesUpdate(Request $request,$id){
+    $role=Role::findOrFail($id);
+    $permissions =$request->permission;
+    if(!empty($permissions)){
+        $role->syncPermissions($permissions);
+    }
+    $notification=array(
+        'message'=>'Role Permission Updated Successfully',
+        'alert-type'=>'success'
+    );
+    return redirect()->route('all.roles.permission')->with($notification);
+
+}
 }
